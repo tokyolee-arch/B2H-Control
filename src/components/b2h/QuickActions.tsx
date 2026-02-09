@@ -14,7 +14,7 @@ interface ActionButton { id: string; label: string; icon: React.ReactNode; color
 export default function QuickActions({ onEmergencyStop, onNavigate }: QuickActionsProps) {
   const actions: ActionButton[] = [
     { id: 'limit', label: '사용한도 설정', icon: <Settings size={22} strokeWidth={2} />, color: COLORS.accentBlue },
-    { id: 'charger', label: '충전소 검색', icon: <MapPin size={22} strokeWidth={2} />, color: COLORS.accentBlue },
+    { id: 'charging-search', label: '충전소 검색', icon: <MapPin size={22} strokeWidth={2} />, color: COLORS.accentBlue },
     { id: 'planner', label: '여정 플래너', icon: <Calendar size={22} strokeWidth={2} />, color: COLORS.accentBlue },
     { id: 'stop', label: '전체 차단', icon: <Power size={22} strokeWidth={2} />, color: COLORS.accentRed, isDestructive: true },
   ];

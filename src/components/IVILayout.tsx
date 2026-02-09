@@ -1,12 +1,21 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import DrivingView from './DrivingView';
 import NavMapView from './NavMapView';
 import B2HControlPanel from './b2h/B2HControlPanel';
-import { ZONE_WIDTH, IVI_RESOLUTION } from '@/constants/config';
+import { ZONE_WIDTH, IVI_RESOLUTION, MOCK_STATIONS } from '@/constants/config';
+
+export type B2HScreen = 'main' | 'charging-search' | 'journey-planner';
 
 export default function IVILayout() {
+  /* Zone B 화면 상태를 IVILayout에서 관리하여 Zone A/C와 연동 */
+  const [currentScreen, setCurrentScreen] = useState<B2HScreen>('main');
+
+  const isChargingSearch = currentScreen === 'charging-search';
+  const isJourneyPlanner = currentScreen === 'journey-planner';
+  const showRoute = isChargingSearch || isJourneyPlanner;
+
   return (
     <div
       className="flex"
@@ -18,7 +27,10 @@ export default function IVILayout() {
     >
       {/* Zone A — 드라이빙 뷰 */}
       <div style={{ width: ZONE_WIDTH.zoneA, height: IVI_RESOLUTION.height, flexShrink: 0 }}>
-        <DrivingView />
+        <DrivingView
+          isChargingSearch={isChargingSearch}
+          isJourneyPlanner={isJourneyPlanner}
+        />
       </div>
 
       {/* 구분선 A|B */}
@@ -26,7 +38,10 @@ export default function IVILayout() {
 
       {/* Zone B — B2H Control */}
       <div style={{ width: ZONE_WIDTH.zoneB, height: IVI_RESOLUTION.height, flexShrink: 0 }}>
-        <B2HControlPanel />
+        <B2HControlPanel
+          currentScreen={currentScreen}
+          onScreenChange={setCurrentScreen}
+        />
       </div>
 
       {/* 구분선 B|C */}
@@ -34,7 +49,11 @@ export default function IVILayout() {
 
       {/* Zone C — 내비게이션 맵 */}
       <div style={{ width: ZONE_WIDTH.zoneC, height: IVI_RESOLUTION.height, flexShrink: 0 }}>
-        <NavMapView />
+        <NavMapView
+          showRoute={showRoute}
+          stations={showRoute ? MOCK_STATIONS : undefined}
+          isJourneyPlanner={isJourneyPlanner}
+        />
       </div>
     </div>
   );

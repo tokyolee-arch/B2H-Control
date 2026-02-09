@@ -187,6 +187,260 @@ html, body {
 .b2h-stagger-6 { animation-delay: 480ms; }
 .b2h-stagger-7 { animation-delay: 560ms; }
 
+/* ── 화면 전환 슬라이드 애니메이션 ── */
+@keyframes b2h-slide-in-right {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+
+@keyframes b2h-slide-out-right {
+  from { transform: translateX(0); }
+  to   { transform: translateX(100%); }
+}
+
+.b2h-screen-enter {
+  animation: b2h-slide-in-right 300ms ease-out forwards;
+}
+
+.b2h-screen-exit {
+  animation: b2h-slide-out-right 250ms ease-in forwards;
+}
+
+/* ── 추천 충전소 카드 상단 shimmer (3초 주기) ── */
+@keyframes station-shimmer {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.station-recommended-shimmer {
+  background: linear-gradient(90deg, #3b8bff, #a78bfa, #3b8bff, #a78bfa, #3b8bff);
+  background-size: 300% 100%;
+  animation: station-shimmer 3s ease-in-out infinite;
+}
+
+/* ── RangeWarning 경고 아이콘 pulse (3초 주기) ── */
+@keyframes warning-icon-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.12); opacity: 0.7; }
+}
+
+.warning-icon-pulse {
+  animation: warning-icon-pulse 3s ease-in-out infinite;
+}
+
+/* ── RouteProgressBar 현재 위치 glow pulse (2초 주기) ── */
+@keyframes route-glow-pulse {
+  0%, 100% { box-shadow: 0 0 6px rgba(59,139,255,0.7), 0 0 14px rgba(59,139,255,0.35); transform: translate(-50%, -50%) scale(1); }
+  50%      { box-shadow: 0 0 10px rgba(59,139,255,1), 0 0 22px rgba(59,139,255,0.55); transform: translate(-50%, -50%) scale(1.25); }
+}
+
+.route-glow-pulse {
+  animation: route-glow-pulse 2s ease-in-out infinite;
+}
+
+/* ── StationCard 터치 피드백 ── */
+.station-card-touch {
+  transform: scale(1);
+  transition: transform 0.12s ease;
+}
+
+.station-card-touch:active {
+  transform: scale(0.99);
+}
+
+/* ── DrivingView 충전소 검색 중 깜빡임 ── */
+@keyframes charging-search-blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.3; }
+}
+
+.charging-search-blink {
+  animation: charging-search-blink 1.5s ease-in-out infinite;
+}
+
+/* ── NavMapView 경로 오버레이 페이드인 ── */
+@keyframes nav-route-fade-in {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.nav-route-fade-in {
+  animation: nav-route-fade-in 500ms ease-out forwards;
+}
+
+/* ── 충전소 검색 화면 진입 stagger (50ms 간격) ── */
+.cs-section-enter {
+  animation: b2h-fade-in-up 0.3s ease-out both;
+}
+
+.cs-stagger-0 { animation-delay: 0ms; }
+.cs-stagger-1 { animation-delay: 50ms; }
+.cs-stagger-2 { animation-delay: 100ms; }
+.cs-stagger-3 { animation-delay: 150ms; }
+.cs-stagger-4 { animation-delay: 200ms; }
+.cs-stagger-5 { animation-delay: 250ms; }
+
+/* ── 토스트 알림 애니메이션 ── */
+@keyframes toast-slide-up {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes toast-fade-out {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+.toast-enter {
+  animation: toast-slide-up 300ms ease-out forwards;
+}
+
+.toast-exit {
+  animation: toast-fade-out 250ms ease-in forwards;
+}
+
+/* ── 긴급 차단 팝업 ── */
+@keyframes shutdown-popup-in {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.85);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes shutdown-popup-out {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+}
+
+.shutdown-popup-enter {
+  animation: shutdown-popup-in 250ms ease-out forwards;
+}
+
+.shutdown-popup-exit {
+  animation: shutdown-popup-out 200ms ease-in forwards;
+}
+
+@keyframes shutdown-countdown-tick {
+  0% {
+    transform: scale(1.3);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.shutdown-countdown-tick {
+  animation: shutdown-countdown-tick 300ms ease-out;
+}
+
+@keyframes shutdown-ring-pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.6);
+    opacity: 0;
+  }
+}
+
+.shutdown-ring-pulse {
+  animation: shutdown-ring-pulse 1s ease-out infinite;
+}
+
+/* ── 여정 플래너: SOC 슬라이더 thumb ── */
+.soc-slider-thumb {
+  transition: transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+.soc-slider-thumb:hover {
+  transform: translateX(-50%) scale(1.15);
+  box-shadow: 0 2px 12px rgba(0, 214, 143, 0.5) !important;
+}
+
+.soc-slider-thumb:active {
+  transform: translateX(-50%) scale(1.05);
+  box-shadow: 0 2px 16px rgba(0, 214, 143, 0.7) !important;
+}
+
+/* ── 여정 플래너: 타임라인 노드 pulse ── */
+@keyframes timeline-node-pulse {
+  0%, 100% {
+    box-shadow: 0 0 8px currentColor;
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 14px currentColor;
+    transform: scale(1.12);
+  }
+}
+
+.timeline-node-pulse {
+  animation: timeline-node-pulse 2.5s ease-in-out infinite;
+}
+
+/* ── 여정 플래너: 시작 버튼 shimmer ── */
+@keyframes journey-start-shimmer {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+
+.journey-start-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255,255,255,0.1) 45%,
+    rgba(255,255,255,0.2) 50%,
+    rgba(255,255,255,0.1) 55%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: journey-start-shimmer 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.journey-start-btn:active {
+  transform: scale(0.98);
+  filter: brightness(0.9);
+}
+
 /* ── 스크롤바 숨기기 ── */
 ::-webkit-scrollbar {
   display: none;
