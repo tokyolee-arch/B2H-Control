@@ -28,7 +28,6 @@ export default function UsageLimitPopup({
   const reserveKwh = Math.round((reservePercent / 100) * totalCapacity * 10) / 10;
   const currentKwh = Math.round((currentSoc / 100) * totalCapacity * 10) / 10;
   const limitKwh = Math.round((limitPercent / 100) * totalCapacity * 10) / 10;
-  const usablePercent = Math.round((limitPercent / currentSoc) * 100);
 
   /* ── 슬라이더 포인터 ── */
   const updateFromPointer = useCallback(
