@@ -1,0 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  overflow: hidden;
+  background: #000;
+  font-family: 'Outfit', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── IVI 공통 ── */
+
+/* 숫자/데이터 전용 폰트 클래스 */
+.font-mono-data {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* 숫자 값 변경 시 부드러운 전환 (150ms) */
+.ivi-number-transition {
+  transition: color 0.15s ease, opacity 0.15s ease;
+}
+
+/* IVI 터치 타겟: 최소 44×44px 히트박스 보장 */
+.ivi-touch-target {
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── 퀵 액션 터치 피드백: scale(0.97) → scale(1) ── */
+.ivi-quick-action {
+  transform: scale(1);
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.12s ease;
+}
+
+.ivi-quick-action:active {
+  transform: scale(0.97);
+}
+
+.ivi-quick-action:hover {
+  background: #161e28 !important;
+}
+
+/* ── 내비게이션 마커 pulse ── */
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+/* ── 도로 격자 배경 ── */
+.road-grid {
+  background-image:
+    linear-gradient(to right, #1a2332 1px, transparent 1px),
+    linear-gradient(to bottom, #1a2332 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+/* 대각선 도로 */
+.diagonal-roads {
+  background-image:
+    linear-gradient(45deg, transparent 48%, #1a2332 48%, #1a2332 49%, transparent 49%),
+    linear-gradient(-45deg, transparent 48%, #1a2332 48%, #1a2332 49%, transparent 49%);
+  background-size: 200px 200px;
+}
+
+/* ── BatterySection 애니메이션 ── */
+
+/* 상단 그라데이션 바: 초록→파랑→초록, 3초 주기 */
+@keyframes battery-gradient-slide {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.battery-gradient-bar {
+  background: linear-gradient(
+    90deg,
+    #00d68f,
+    #3b8bff,
+    #00d68f,
+    #3b8bff,
+    #00d68f
+  );
+  background-size: 300% 100%;
+  animation: battery-gradient-slide 3s ease-in-out infinite;
+}
+
+/* 배터리 채움 shimmer 효과 (좌→우, 2초 주기) */
+@keyframes battery-shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.battery-fill-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.12) 40%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.12) 60%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: battery-shimmer 2s ease-in-out infinite;
+}
+
+/* 상태 dot pulse 2초 주기 */
+@keyframes dot-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.4; transform: scale(0.7); }
+}
+
+.battery-dot-pulse {
+  animation: dot-pulse 2s ease-in-out infinite;
+}
+
+/* ── PowerGraph 애니메이션 ── */
+
+/* 그래프 현재값 dot pulse */
+@keyframes power-graph-dot-pulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.8);
+    opacity: 0;
+  }
+}
+
+.power-graph-dot-pulse {
+  animation: power-graph-dot-pulse 2s ease-in-out infinite;
+}
+
+/* ── EnergyDistribution 값 전환 ── */
+.energy-value-transition {
+  transition: color 0.3s ease;
+}
+
+/* ── B2H 섹션 진입 애니메이션 (fadeInUp stagger) ── */
+@keyframes b2h-fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.b2h-section-enter {
+  animation: b2h-fade-in-up 0.35s ease-out both;
+}
+
+.b2h-stagger-0 { animation-delay: 0ms; }
+.b2h-stagger-1 { animation-delay: 80ms; }
+.b2h-stagger-2 { animation-delay: 160ms; }
+.b2h-stagger-3 { animation-delay: 240ms; }
+.b2h-stagger-4 { animation-delay: 320ms; }
+.b2h-stagger-5 { animation-delay: 400ms; }
+.b2h-stagger-6 { animation-delay: 480ms; }
+.b2h-stagger-7 { animation-delay: 560ms; }
+
+/* ── 스크롤바 숨기기 ── */
+::-webkit-scrollbar {
+  display: none;
+}
